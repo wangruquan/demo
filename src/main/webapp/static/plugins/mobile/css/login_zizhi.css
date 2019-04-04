@@ -1,0 +1,273 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*登录+资质审核*/
+html,body{
+	background:#fff;
+}
+
+/*登录*/
+.login_logo{
+	width: 13rem;
+	overflow: hidden;
+	margin: 8.5rem auto;
+}
+.login_logo img{
+	width: 100%;
+}
+.login{
+	width: 80%;
+	margin: 0 auto;
+}
+.login_list{
+	width: 100%;
+	padding-left: 3.5rem;
+	margin: 2rem 0;
+	height: 4rem;
+	position: relative;
+}
+.login_list input{
+	width: 100%;
+	height: 4rem;
+	border-bottom: solid 1px #ccc;
+}
+.login_list input:focus{
+border-bottom-color: #fc7e12 !important;
+outline: 0;
+}
+.login_list i{
+	display: inline-block;
+	width: 2.5rem;
+	height: 2.5rem;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin-top: -1.25rem;
+}
+.login_list i.login1{
+	background: url(../images/login1.png) no-repeat center;
+	background-size: 100% auto;
+}
+.login_list i.login2{
+	background: url(../images/login2.png) no-repeat center;
+	background-size: 100% auto;
+}
+.login_list b{
+	font-size: 1rem;
+	color: red;
+	position: absolute;
+	bottom: -1.8rem;
+	left: 3.5rem;
+}
+.login button,
+.zizhi_btn input[type="submit"]{
+	width: 100%;
+	height: 4.4rem;
+	border-radius: 2.2rem;
+	background-image: -moz-linear-gradient( 0deg, rgb(255,129,22) 0%, rgb(237,109,0) 100%);
+	background-image: -webkit-linear-gradient( 0deg, rgb(255,129,22) 0%, rgb(237,109,0) 100%);
+	background-image: -ms-linear-gradient( 0deg, rgb(255,129,22) 0%, rgb(237,109,0) 100%);
+	color: #fff;
+	font-size: 1.6rem;
+	margin-top: 4rem;
+	display: block;
+	margin-bottom: 1rem;
+}
+.login button:active,
+.zizhi_btn input[type="submit"]:active{
+	background-image: -moz-linear-gradient( 0deg, rgb(245,129,31) 0%, rgb(222,106,7) 100%);
+	background-image: -webkit-linear-gradient( 0deg, rgb(245,129,31) 0%, rgb(222,106,7) 100%);
+	background-image: -ms-linear-gradient( 0deg, rgb(245,129,31) 0%, rgb(222,106,7) 100%);
+}
+
+/*资质上传-基本资料*/
+.zizhi_btn{
+	width: 100%;
+	padding: 0 1.5rem;
+}
+.zizhi_btn a{
+	line-height: 4.4rem;
+	text-align: center;
+}
+.zizhi_btn input[type="button"]{
+	display: block;
+	margin: 0 auto;
+	background: none;
+	font-size: 1.6rem;
+	color: #999;
+	margin-top: 4rem;
+	margin-bottom: -2rem;
+}
+
+.zizhi_info{
+	width: 100%;
+	padding: 0 1.5rem;
+}
+.zizhi_info h2{
+	font-size: 1.4rem;
+	color: #999;
+	line-height: 1.4rem;
+	margin-top: 2rem;
+}
+.zizhi_info input{
+	width: 100%;
+	height: 4.4rem;
+	background: #f5f5f5;
+	padding: 0 0.5rem;
+	font-size: 1.4rem;
+	color: #000;
+	border-radius: 0.6rem;
+	margin-top: 1rem;
+}
+
+/*资质上传-图片资料*/
+.upload{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.load_box{
+	width: 49%;
+	margin-top: 1rem;
+	height: 12rem;
+	position: relative;
+	background-color: rgba(82,155,255,0.1);
+	border: solid 1px #eeeeee;
+}
+.load_box input[type="file"]{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: 2;
+}
+.load_box i{
+	width: 4.5rem;
+	height: 4.5rem;
+	border-radius: 100%;
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -2.25rem;
+	margin-top: -2.25rem;
+	border: solid 2px #529bff;
+	background: url(../images/zizhi.png) no-repeat center;
+	background-size: 60% 60%;
+}
+.load_box img{
+	width: 100%;
+	min-height: 100%;
+}
+.load_box.sfz1{
+	background-image: url(../images/sfz1.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 100%;
+	background-color: rgba(82,155,255,0.2);
+}
+.load_box.sfz2{
+	background-image: url(../images/sfz2.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 100%;
+}
+.load_box.sfz13{
+	background-image: url(../images/sfz3.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 100%;
+}
+
+
+/*审核结果*/
+.shenhe_top{
+	width: 100%;
+	height: 24rem;
+	position: relative;
+}
+.shenhe1{
+	background: url(../images/shenhe1.png) no-repeat center top;
+	background-size: 100% 100%;
+}
+.shenhe2{
+	background: url(../images/shenhe2.png) no-repeat center top;
+	background-size: 100% 100%;
+}
+.shenhe3{
+	background: url(../images/shenhe3.png) no-repeat center top;
+	background-size: 100% 100%;
+}
+.shenhe_top .state{
+	width: 9.5rem;
+	height: 9.5rem;
+	border-radius: 100%;
+	border:solid 0.4rem rgba(255,255,255,0.5);
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	margin-top: -4.75rem;
+	margin-left: -4.75rem;
+	padding-top: 1.3rem;
+}
+.shenhe_top .state i{
+	width: 4.5rem;
+	height: 3.5rem;
+	display: block;
+	margin: 0 auto;
+}
+.shenhe_top .state i.s_icon1{
+	background: url(../images/shenhe_icon1.png) no-repeat center;
+	background-size: 100% auto;
+}
+.shenhe_top .state i.s_icon2{
+	background: url(../images/shenhe_icon2.png) no-repeat center;
+	background-size: 100% auto;
+}
+.shenhe_top .state i.s_icon3{
+	background: url(../images/shenhe_icon3.png) no-repeat center;
+	background-size: 100% auto;
+}
+.shenhe_top .state h2{
+	text-align: center;
+	line-height: 3rem;
+	font-size: 1.4rem;
+	color: #fff;
+}
+.shenhe_txt{
+	width: 100%;
+	padding: 0 1.5rem;
+	margin-top: 6rem;
+}
+.shenhe_txt h1{
+	font-size: 1.6rem;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 2rem;
+}
+.shenhe_txt h5{
+	font-size: 1.4rem;
+	color: #666;
+	text-align: center;
+	line-height: 1.8;
+}
+.shenhe_txt a{
+	width: 100%;
+	height: 4.4rem;
+	line-height: 4.4rem;
+	text-align: center;
+	border-radius: 2.2rem;
+	background-image: -moz-linear-gradient( 0deg, rgb(146,221,133) 0%, rgb(112,226,94) 100%);
+	background-image: -webkit-linear-gradient( 0deg, rgb(146,221,133) 0%, rgb(112,226,94) 100%);
+	background-image: -ms-linear-gradient( 0deg, rgb(146,221,133) 0%, rgb(112,226,94) 100%);
+	color: #fff;
+	font-size: 1.6rem;
+	margin-top: 4rem;
+	display: block;
+	margin-bottom: 1rem;
+}
+.shenhe_txt a.wei{
+	background-image: -moz-linear-gradient( 0deg, rgb(252,125,92) 0%, rgb(241,106,105) 100%);
+	background-image: -webkit-linear-gradient( 0deg, rgb(252,125,92) 0%, rgb(241,106,105) 100%);
+	background-image: -ms-linear-gradient( 0deg, rgb(252,125,92) 0%, rgb(241,106,105) 100%);
+}

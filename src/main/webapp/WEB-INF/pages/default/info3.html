@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>信息录用</title>
+	<link rel="stylesheet" href="${webroot}/static/plugins/user/css/index_style.css" />
+	<script src="${webroot}/static/plugins/user/js/jquery-1.7.1.min.js"></script>
+	<link rel="stylesheet" href="${webroot}/static/plugins/user/plugins/eleme-ui/index.css" />
+	<script type="text/javascript" src="${webroot}/static/plugins/layui/layui.js"></script>
+	<link rel="stylesheet" href="${webroot}/static/plugins/layui/css/layui.css">
+	<script type="text/javascript" src="https://cdn.bootcss.com/distpicker/2.0.5/distpicker.min.js"></script>
+</head>
+<body>
+	<div class="layui-fluid">
+	<form class="layui-form" id="info" isLoad="1" loadUrl="front/init.json">
+	<input type="hidden" name="id"/>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">用户名称</label>
+	    <div class="layui-input-inline" >
+	      <input type="text"  name="name" required="" lay-verType="tips" lay-verify="required" placeholder="请输入用户名称" autocomplete="off" class="layui-input"/>
+	    </div>
+		<label class="layui-form-label">身份证</label>
+		<div class="layui-input-inline">
+			<input type="text" name="id_card" required="" lay-verType="tips" lay-verify="identity|number" placeholder="请输入身份证" autocomplete="off" class="layui-input"/>
+		</div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">手机号</label>
+	    <div class="layui-input-inline">
+	      <input type="text" name="phone"  lay-verType="tips" lay-verify="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input"/>
+	    </div>
+		<label class="layui-form-label">金额</label>
+		<div class="layui-input-inline">
+		  <input type="text" name="money" lay-verType="tips" lay-verify="number" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly="readonly"/>
+		</div>
+	    </div>
+		<div class="layui-form-item" >
+			<div class="layui-upload">
+				<button type="button" class="layui-btn" id="id_just">上传身份证正面</button>
+				<div class="layui-upload-list">
+					<img class="layui-upload-img" id="demo1" width="350px" height="227px" src="${webroot}/static/plugins/user/images/sfz1.png">
+					<p id="demoText1"></p>
+				</div>
+				<button type="button" class="layui-btn" id="id_against">上传身份证反面</button>
+				<div class="layui-upload-list">
+					<img class="layui-upload-img" id="demo2" width="350px" height="227px" src="${webroot}/static/plugins/user/images/sfz2.png">
+					<p id="demoText2"></p>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">选择城市</label>
+			<div class="layui-input-inline" style="width: 160px;">
+				<select id="sel_province" name="province"  lay-filter="sel_province"
+						lay-verType="tips" class="sykSelect" dict="select_province"
+						childrenSelectId="sel_city" addNull="1">
+				</select>
+			</div>
+			<div class="layui-input-inline" style="width: 160px">
+					<select id="sel_city" name="city"  lay-filter="sel_city"
+					lay-verType="tips" class="sykSelect" dict="select_city"
+					childrenSelectId="sel_district">
+					</select>
+			</div>
+			<div class="layui-input-inline" style="width: 160px">
+					<select id="sel_district" name="county"  lay-filter="sel_district"
+							lay-verType="tips" class="sykSelect" dict="select_county">
+					</select>
+			</div>
+		</div>
+	  <div class="layui-form-item">
+		  <label class="layui-form-label">邮寄地址</label>
+		  <div class="layui-input-inline">
+			  <input type="text" name="address"  lay-verType="tips"  placeholder="请输入邮寄地址" autocomplete="off" class="layui-input"/>
+		  </div>
+	  </div>
+	  <hr/>
+	  <div class="layui-form-item" style="text-align: center;">
+     	 <button class="layui-btn" lay-submit="" lay-filter="edit" url="front/save.json"><i class="layui-icon">&#xe642;</i>保存</button>
+     	 <button type="button" class="layui-btn layui-btn-primary" function="close">关闭</button>
+    </div>
+	</form>
+	</div>
+
+	<script>
+        layui.use(['upload','layer','jquery','table','form'], function(){
+            var upload = layui.upload,layer = layui.layer,
+                table = layui.table,
+                form = layui.form,
+                $ = layui.$;
+            //身份证正面上传
+            var just =   upload.render({
+                elem: '#id_just'
+                ,url: 'just.json'
+                ,accept: 'images'
+                ,acceptMime: 'image/jpg, image/png'
+                ,exts: 'jpg|png'  //允许上传文件的后缀  指定上传文件格式
+                ,size: 3072       //允许上传文件的大小  3m
+                ,drag: true
+                ,before: function(obj){
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function(index, file, result){
+                        fileName[0] = file.name;
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                ,done: function(res){
+                    if (res.code = 200){
+                        layer.msg("成功!");
+                    } else {
+                        var demoText = $('#demoText1');
+                        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                        demoText.find('.demo-reload').on('click', function(){
+                            just.upload();
+                        });
+                    }
+                }
+                ,error: function(){
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText1');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function(){
+                        just.upload();
+                    });
+                }
+            });
+
+            //身份证反面上传
+            var against = upload.render({
+                elem: '#id_against'
+                ,url: 'against.json'
+                ,accept: 'images'
+                ,acceptMime: 'image/jpg, image/png'  //layer版本太低 无法显示
+                ,exts: 'jpg|png'  //允许上传文件的后缀  指定上传文件格式
+                ,size: 3072       //允许上传文件的大小  3m
+                ,drag: true
+                ,before: function(obj){
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function(index, file, result){
+                        fileName[1] = file.name;
+                        $('#demo2').attr('src', result); //图片链接（base64）
+                    });
+                }
+                ,done: function(res){
+                    if (res.code = 200){
+                        layer.msg("成功!");
+                    } else {
+                        var demoText = $('#demoText1');
+                        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                        demoText.find('.demo-reload').on('click', function(){
+                            against.upload();
+                        });
+                    }
+                }
+                ,error: function(){
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText2');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function(){
+                        against.upload();
+                    });
+                }
+            });
+
+
+        });
+	</script>
+</body>
+</html>

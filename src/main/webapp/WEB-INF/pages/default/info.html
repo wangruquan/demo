@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>信息录用</title>
+	<link rel="stylesheet" href="${webroot}/static/plugins/user/css/index_style.css" />
+	<script src="${webroot}/static/plugins/user/js/jquery-1.7.1.min.js"></script>
+	<link rel="stylesheet" href="${webroot}/static/plugins/user/plugins/eleme-ui/index.css" />
+	<script type="text/javascript" src="${webroot}/static/plugins/layui/layui.js"></script>
+	<link rel="stylesheet" href="${webroot}/static/plugins/layui/css/layui.css">
+	<script type="text/javascript" src="https://cdn.bootcss.com/distpicker/2.0.5/distpicker.min.js"></script>
+	<style>
+
+
+	</style>
+</head>
+<script>
+
+    var phoneWidth = parseInt(window.screen.width);
+    var phoneHeight = parseInt(window.screen.height);
+    var phoneScale = phoneWidth/590;//除以的值按手机的物理分辨率
+    var phonheight = phoneHeight/200;
+    var ua = navigator.userAgent;
+    if (/Android (\d+\.\d+)/.test(ua)) {
+
+
+        var version = parseFloat(RegExp.$1);
+        // andriod 2.3
+        if (version > 2.3) {
+            document.write('<meta name="viewport" content="width=device-width,initial-scale='+phoneScale+',minimum-scale='+phoneScale+',maximum-scale='+phoneScale+',user-scalable=no">');
+
+            // andriod 2.3以上
+        } else {
+            document.write('<meta name="viewport" content="width=device-width,user-scalable=no">');
+
+        }
+        // 其他系统
+    } else {
+        document.write('<meta name="viewport" content="width=device-width, initial-scale='+phoneScale+',minimum-scale='+phoneScale+',maximum-scale ='+phoneScale +',user-scalable=no,">');
+
+    }
+
+
+</script>
+<body>
+<div class="register" id="fontset1">
+
+	<table cellspacing="0" cellpadding="0"  id="fontset2"  style="margin-top: 30px" >
+		<tr>
+			<td style=" margin-left:20px;width:220px ; text-align: center; color: #38bca4; font-size: 20px; font-weight: bold; "colspan="2" ><br>长沙市金融办</br>非法经营案个人资金返回查询系统</td>
+		</tr>
+		<tr>
+			<td width="120px; "><h3>基本信息</h3></td>
+		</tr>
+		<tr>
+			<td><input type="text"  name="user_id" placeholder="请输入用户ID"  hidden="hidden"/></td>
+		</tr>
+		<tr>
+			<td>姓名：</td>
+			<td><input type="text"  name="user_name" required="" lay-verType="tips" lay-verify="required" placeholder="请输入用户名称" autocomplete="off" class="layui-input" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>身份证号码：</td>
+			<td><input type="text" name="id_card" required="" lay-verType="tips" lay-verify="identity|number" placeholder="请输入身份证" autocomplete="off" class="layui-input" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>手机号码：</td>
+			<td> <input type="text" name="phone"  lay-verType="tips" lay-verify="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>金额：</td>
+			<td><input type="text" name="money" lay-verType="tips" lay-verify="number" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>身份证正面：</td>
+			<td>
+				<div class="layui-upload zheng">
+					<button type="button" class="layui-btn" id="id_just">上传身份证正面</button>
+					<div class="layui-upload-list">
+						<img class="layui-upload-img" id="demo1" width="350px" height="227px" src="${webroot}/static/plugins/user/images/sfz1.png">
+						<p id="demoText1"></p>
+					</div>
+				</div>
+				<div class="layui-upload zheng" id="clear" style="clear: both;">
+					<button type="button" class="layui-btn" id="id_against">上传身份证反面</button>
+					<div class="layui-upload-list">
+						<img class="layui-upload-img" id="demo2" width="350px" height="227px" src="${webroot}/static/plugins/user/images/sfz2.png">
+						<p id="demoText2"></p>
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>地址：</td>
+			<td>
+				<div data-toggle="distpicker" id="target">
+					<select name = "province" class="layui-input-inline" id="province"
+					<#if province != ''>data-province="${province}"</#if>></select>
+					<select name="city" class="layui-input-inline" id="city"
+					<#if city != ''>data-city="${city}"</#if>
+					></select>
+					<select name="area" class="layui-input-inline" id="area"
+					<#if area != ''>data-district="${area}"</#if>
+					></select>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>详细地址：</td>
+			<td><textarea placeholder="请输入详细地址，如：街道、小区、楼栋" id="address"></textarea></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="确认" class="xu_show"></td>
+		</tr>
+	</table>
+</div>
+
+<!--提交弹窗-->
+<div class="popup_box popup_xu">
+	<div class="popup">
+		<div class="popup_title">
+			<h2>信息提交</h2>
+			<i class="popup_hide"></i>
+		</div>
+		<div class="shi">
+			<h2>是否确认提交？</h2>
+			<div class="popup_btn">
+				<input type="button" id="ok" value="确定" />
+				<input type="button" id="no" value="取消" />
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+    $(".xu_show").click(function(){
+        $(".popup_xu").css("display","block");
+    });
+    $(".popup_hide").click(function(){
+        $(".popup_box").css("display","none");
+    });
+</script>
+<script>
+    layui.use(['upload','layer','jquery','form'], function() {
+        var upload = layui.upload,
+            layer = layui.layer,
+            form = layui.form,
+            $ = layui.$;
+        //身份证正面上传
+        var just =   upload.render({
+            elem: '#id_just'
+            ,url: 'just.json'
+            ,accept: 'images'
+            ,acceptMime: 'image/jpg, image/png, image/jpeg'
+            ,exts: 'jpg|png|jpeg'  //允许上传文件的后缀  指定上传文件格式
+            ,size: 3072       //允许上传文件的大小  3m
+            ,drag: true
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+//                        fileName[0] = file.name;
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                    $('#demo1').attr('alt', file.name); //图片名字
+                });
+            }
+            ,done: function(res){
+                if (res.code = 200){
+                    layer.msg("成功!");
+                } else {
+                    var demoText = $('#demoText1');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function(){
+                        just.upload();
+                    });
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText1');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    just.upload();
+                });
+            }
+        });
+        //身份证反面上传
+        var against = upload.render({
+            elem: '#id_against'
+            ,url: 'against.json'
+            ,accept: 'images'
+            ,acceptMime: 'image/jpg, image/png, image/jpeg'  //layer版本太低 无法显示
+            ,exts: 'jpg|png|jpeg'  //允许上传文件的后缀  指定上传文件格式
+            ,size: 3072       //允许上传文件的大小  3m
+            ,drag: true
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('	#demo2').attr('src', result); //图片链接（base64）
+                    $('#demo2').attr('alt', file.name); //图片名字
+                });
+            }
+            ,done: function(res){
+                if (res.code = 200){
+                    layer.msg("成功!");
+                } else {
+                    var demoText = $('#demoText1');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function(){
+                        against.upload();
+                    });
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText2');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    against.upload();
+                });
+            }
+        });
+        $(function () {
+            /**
+             * 打开重要提示窗口
+             */
+            $.ajax({
+                url: 'read.json',
+                type: 'post',
+                data: '',
+                dataType: 'json'
+                ,success: function (data) {
+                    var result = "";
+                    if (data.length > 0) {
+                        result += data;
+                    }
+                    //示范一个公告层
+                    layer.open({
+                        type: 1
+                        ,title: '重要信息' //不显示标题栏
+                        ,closeBtn: false
+                        ,area:  '500px'
+                        ,shade: 0.8
+                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,resize: false
+                        ,btn: ['我已阅读重要提示']
+                        ,btnAlign: 'c'
+                        ,moveType: 1 //拖拽模式，0或者1
+                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #fff; color: #020202; font-weight: 300; font-size: 18px ">'
+                        + result +'</div>'
+                        ,success: function(){
+                            $.ajax({
+                                url: 'init.json',
+                                type: 'post',
+                                data: '',
+                                dataType: 'json',
+                                success: function (data) {
+                                    $("input[name=user_id]").val(data.user_id);
+                                    $("input[name=user_name]").val(data.user_name);
+                                    $("input[name=id_card]").val(data.id_card);
+                                    $("input[name=phone]").val(data.phone);
+                                    $("input[name=money]").val(data.money);
+                                    var id_justImg = data.id_just;
+                                    var id_againstImg = data.id_against;
+                                    var province = data.province;
+                                    var city = data.city;
+                                    var area = data.area;
+                                    var address = data.address;
+                                    var state = data.state;
+                                    if (id_justImg != "" && id_justImg != null && id_againstImg != null && id_againstImg != ""){
+                                        $('#demo1').attr('src', "/ofcms-admin/upload/id/"+id_justImg); 		//图片链接（base64）
+                                        $('#demo1').attr('alt', id_justImg); 								//图片alt
+                                        $('#demo2').attr('src', "/ofcms-admin/upload/id/"+id_againstImg);	 //图片链接（base64）
+                                        $('#demo2').attr('alt', id_againstImg); 								//图片alt
+                                    }
+                                    if (province != "" && city != "" && area != ""){
+                                        $('#target').distpicker('destroy');
+                                        $('#target').distpicker({
+                                            province: province,
+                                            city: city,
+                                            district: area
+                                        });
+                                    }
+
+                                    if (address != "" && address != ""){
+                                        $("#address").val(address)
+                                    }
+                                    if (state == 0){
+                                        $(".xu_show").val("更改信息");
+                                    }
+                                }
+                                ,error: function (data) {
+                                    layer.msg("对不起发生未知异常!请刷新页面重试！")
+                                }
+                            })
+                        }
+                        ,cancel: function(){
+                            //右上角关闭回调
+                            return false;  //开启该代码可禁止点击该按钮关闭
+                        }
+                    });
+
+
+                }
+                ,error: function (data) {
+                    layer.msg("服务器发生异常!,请刷新页面重试!");
+                }
+
+            });
+            $("#ok").click(function(){
+                $(".popup_box").css("display","none");
+                var user_name = $("input[name=user_name]").val();
+                var user_id = $("input[name=user_id]").val();
+                var id_card = $("input[name=id_card]").val();
+                var phone = $("input[name=phone]").val();
+                var money =  $("input[name=money]").val();
+                var province =  $("#province").val();
+                var city =  $("#city").val();
+                var area =  $("#area").val();
+                var address =  $("#address").val();
+                var province_data =  provinceCode();
+                var city_data =  cityCode();
+                var area_data =  areaCode();
+                var id_just = $("#demo1").attr("alt");
+                var id_against =$("#demo2").attr("alt");
+                var flag = true;
+                if (province == ""){
+                    flag = false;
+                    layer.msg("请选择省!")
+                } else if (city == ""){
+                    flag = false;
+                    layer.msg("请选择市");
+                } else if (area == ""){
+                    flag = false;
+                    layer.msg("请选择县!");
+                } else if(address == "") {
+                    flag = false;
+                    layer.msg("请输入地址!");
+                }
+                if (flag){
+                    $.ajax({
+                        url: 'save.json',
+                        type: 'post',
+                        data: {id_card:id_card,phone:phone,address:address,id_just:id_just,id_against:id_against, province:province
+                            ,city:city,area:area,province_data:province_data,city_data:city_data,area_data:area_data,user_id:user_id},
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data = "成功!"){
+                                layer.msg("录入成功!");
+                            }else {
+                                layer.msg("对不起，录入失败!请刷新页面重试！")
+                            }
+                        }
+                        ,error: function (data) {
+                            layer.msg("对不起，录入失败!请刷新页面重试！")
+                        }
+                    })
+                }
+
+            });
+            $("#no").click(function(){
+                $(".popup_box").css("display","none");
+            });
+            function provinceCode(){
+                var firstCode= $('#province').find('option:selected').attr('data-code');  //获取被选中的option的属性值
+                return firstCode;	//返回最终获取的code码
+            };
+            function cityCode(){
+                var secondCode = $('#city').find('option:selected').attr('data-code');  //获取被选中的option的属性值
+                return secondCode;	//返回最终获取的code码
+            };
+            function areaCode(){
+                var thirdCode= $('#area').find('option:selected').attr('data-code');
+                return thirdCode;	//返回最终获取的code码
+            };
+        })
+    })
+</script>
+
+
+
+<script type="text/javascript" src="${webroot}/static/plugins/user/plugins/vue/vue.min.js" ></script>
+<script type="text/javascript" src="${webroot}/static/plugins/user/plugins/eleme-ui/index.js" ></script>
+<script type="text/javascript" src="${webroot}/static/plugins/user/plugins/city-picker/city-data.js" ></script>
+<script type="text/javascript" src="${webroot}/static/plugins/user/js/CivilMilitaryIntegration/ShoppingCart.js" ></script>
+</body>
+</html>

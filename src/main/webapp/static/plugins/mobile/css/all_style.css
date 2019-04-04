@@ -1,0 +1,231 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*通用*/
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border: none;
+	box-sizing: border-box;
+	font-weight: 400;
+	outline: none;
+	text-decoration: none;
+}
+html,body{
+	width: 100%;
+	color: #000;
+	background: #f2f2f2;
+}
+html{
+	font-size: 62.5%;
+}
+.white_bg{
+	background: #fff;
+}
+a{
+	color: #333;
+}
+img{
+	display: block;
+	max-width: 100%;
+}
+.padding-b{
+	padding-bottom: 5rem;
+}
+
+/*定义input提示文字颜色*/
+::-webkit-input-placeholder{color:#ccc;}
+:-moz-placeholder{color:#ccc;}
+::-moz-placeholder{color:#ccc;}
+:-ms-input-placeholder{color:#ccc;}
+
+/*iphone自带样式*/
+input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance: none;appearance: none;}
+
+/*底部标签栏 tab*/
+.tab{
+	display: flex;
+	justify-content: space-between;
+	padding: 0 1rem;
+	border-top: solid 1px #ccc;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 4.9rem;
+	overflow: hidden;
+	background: #fff;
+	z-index: 9999;
+}
+.tab a{
+	display: block;
+	width: 33%;
+	text-align: center;
+}
+.tab a i{
+	width: 2.5rem;
+	height: 2.5rem;
+	display: block;
+	margin: 0.4rem auto 0.15rem auto;
+}
+.tab a h6{
+	font-size: 1rem;
+	color: #666;
+}
+.tab a.on h6{
+	color: #ED6D00;
+}
+.tab a i.tab_icon1{
+	background: url(../images/icon1.png) no-repeat center;
+	background-size: 100%;
+}
+.tab a i.tab_icon2{
+	background: url(../images/icon2.png) no-repeat center;
+	background-size: 100%;
+}
+.tab a i.tab_icon3{
+	background: url(../images/icon3.png) no-repeat center;
+	background-size: 100%;
+}
+.tab a.on i.tab_icon1{
+	background: url(../images/icon11.png) no-repeat center;
+	background-size: 100%;
+}
+.tab a.on i.tab_icon2{
+	background: url(../images/icon22.png) no-repeat center;
+	background-size: 100%;
+}
+.tab a.on i.tab_icon3{
+	background: url(../images/icon33.png) no-repeat center;
+	background-size: 100%;
+}
+
+
+
+/*缺省页面*/
+.default .defa{
+	width: 8.5rem;
+	height: 6rem;
+	margin: 13rem auto 0 auto;
+}
+.default .defa img{
+	width: 100%;
+	margin: 0 auto;
+}
+.default h6{
+	font-size: 1.2rem;
+	text-align: center;
+	color: #999;
+	margin-top: 1.5rem;
+}
+
+/*没有更多内容*/
+.no_more{
+	font-size: 1.4rem;
+	text-align: center;
+	color: #ccc;
+	margin: 3rem 0;
+}
+
+
+/*弹窗*/
+.popup_box{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: rgba(0,0,0,0.4);
+	z-index: 99999;
+	padding: 0 2.5rem;
+	display: none;
+}
+.popup{
+	width: 100%;
+	background: #fff;
+	border-radius: 0.6rem;
+	position: relative;
+	top: 20%;
+}
+.popup .popup_con{
+	padding: 2rem 2rem 0 2rem;
+}
+.popup .popup_btn{
+	margin-top: 3rem;
+	display: flex;
+	justify-content: space-between;
+}
+.popup .popup_btn input{
+	width: 50%;
+	background: none;
+	height: 4.5rem;
+	color: #ED6D00;
+	font-size: 1.4rem;
+	border-top: solid 1px #ccc;
+}
+.popup .popup_btn input.no{
+	border-right: solid 1px #ccc;
+	color: #666;
+}
+
+
+/*搜索*/
+.search{
+	padding: 0 1.5rem;
+	position: relative;
+	background: #f2f2f2;
+}
+.search input[type="button"]{
+	width: 2rem;
+	height: 3.4rem;
+	display: inline-block;
+	position: absolute;
+	right: 1.8rem;
+	top: 0.5rem;
+	background: url(../images/search.png) no-repeat center;
+	background-size: 1.4rem auto;
+}
+.search input[type="text"]{
+	width: 100%;
+	background: #fff;
+	height: 3.4rem;
+	padding: 0 2rem 0 0.5rem;
+	font-size: 1.4rem;
+	color: #000;
+	margin: 0.5rem 0;
+	border-radius: 0.6rem;
+}
+
+
+/*发布按钮*/
+.release{
+	padding: 1.5rem 0;
+	width: 100%;
+}
+.release a{
+	display: block;
+	margin: 0 auto;
+	width: 9rem;
+	height: 3rem;
+	border-radius: 1.5rem;
+	background: rgba(237,109,0,0.1);
+	text-align: center;
+	line-height: 3rem;
+	font-size: 1.2rem;
+	color: #ed6d00;
+}
+
+
+/*文章详情*/
+.content{
+	padding: 1.5rem;
+	font-size: 1.4rem;
+	line-height: 1.8;
+	color: #000;
+	text-align: justify;
+}
+.content img{
+	margin: 1rem auto;
+	max-width: 100%;
+}

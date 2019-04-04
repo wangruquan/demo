@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)http://www.17sucai.com/preview/1268063/2018-07-26/code/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>登录</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link href="${webroot}/static/plugins/mobile/css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="${webroot}/static/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="${webroot}/static/plugins/mobile/js/clean.js"></script>
+    <script type="text/javascript" src="${webroot}/static/plugins/layui/layui.js"></script>
+    <link rel="stylesheet" href="${webroot}/static/plugins/layui/css/layui.css">
+</head>
+<body style="">
+
+
+<section class="aui-flexView">
+
+    <section class="aui-scrollView">
+        <div class="aui-code-box">
+            <h2>长沙市金融办</h2>
+            <p>非法经营案个人资金返回查询系统</p>
+
+
+                <p class="aui-code-line aui-code-line-clear">
+                    <span style="position:relative;" class="add-clear-span"><input id="code1" type="text" class="aui-code-line-input" autocomplete="off" placeholder="姓名" name="user_name"><a href="http://www.17sucai.com/preview/1268063/2018-07-26/code/index.html#clear" style="color: rgb(204, 204, 204); text-decoration: none; display: none; line-height: 1; overflow: hidden; position: absolute; right: 4px; top: 1px;">✖</a></span>
+                </p>
+                <p class="aui-code-line aui-code-line-clear">
+                    <span style="position:relative;" class="add-clear-span"><input id="code2" type="text" class="aui-code-line-input" autocomplete="off" placeholder="身份证" name='id_card' ><a href="http://www.17sucai.com/preview/1268063/2018-07-26/code/index.html#clear" style="color: rgb(204, 204, 204); text-decoration: none; display: none; line-height: 1; overflow: hidden; position: absolute; right: 4px; top: 1px;">✖</a></span>
+                </p>
+                <p class="aui-code-line">
+                    <span style="position:relative;" class="add-clear-span"><input id="phone1" type="text" class="aui-code-line-input" autocomplete="off" placeholder="手机号" name='phone'><a href="http://www.17sucai.com/preview/1268063/2018-07-26/code/index.html#clear" style="color: rgb(204, 204, 204); text-decoration: none; display: none; line-height: 1; overflow: hidden; position: absolute; right: 4px; top: 1px;">✖</a></span>
+                </p>
+                <p class="aui-code-line aui-code-line-clear">
+                    <span style="position:relative;" class="add-clear-span"><input id="code4" type="text" class="aui-code-line-input" autocomplete="off" placeholder="短信验证码" name='code'><a href="http://www.17sucai.com/preview/1268063/2018-07-26/code/index.html#clear" style="color: rgb(204, 204, 204); text-decoration: none; display: none; line-height: 1; overflow: hidden; position: absolute; right: 4px; top: 1px;">✖</a></span>
+                    <input id="gain" type="button" class="aui-btn-default" value="获取验证码" >
+                </p>
+                <p class="aui-code-btn" id="login">
+                    <button>登录</button>
+                </p>
+
+        </div>
+    </section>
+</section>
+<script type="text/javascript" charset="utf-8">
+    $(function(){
+
+        $(".aui-code-line-input").addClear();
+
+    });
+</script>
+<script type="text/javascript">
+    layui.use(['layer','form'],function () {
+        var layer = layui.layer,
+            form = layui.form;
+    });
+    $(function () {
+        $("#login").click(function () {
+            var identity = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            var tel  = /^1\d{10}$/;
+            var user_name = $("input[name='user_name']").val();
+            var id_card = $("input[name='id_card']").val();
+            var phone = $("input[name='phone']").val();
+            var code = $("input[name='code']").val();
+            code = code.toLowerCase();
+            var flag = true;
+            if (user_name == ""){
+                flag = false;
+                layer.msg("用户名不能为空!");
+            } else if (id_card == ""){
+                flag = false;
+                layer.msg("身份证不能为空!");
+            } else if(!identity.test(id_card)) {
+                flag = false;
+                layer.msg("请输入正确的身份证!");
+            } else if (phone == ""){
+                flag = false;
+                layer.msg("手机号不能为空!");
+            } else if(!tel.test(phone)) {
+                flag = false;
+                layer.msg("请输入正确的手机号!");
+            } else if (code == ""){
+                flag = false;
+                layer.msg("验证码不能为空!");
+            }
+            if (flag){
+                $.ajax({
+                    url: 'user.json',
+                    type: 'post',
+                    data: {user_name:user_name, id_card:id_card,phone:phone,code:code},
+                    dataType: 'json'
+                    ,success: function (data) {
+                        if (data.code == 200){
+                            layer.msg("登入成功!");
+                            //登入成功跳转页面
+                            //生成随机数
+                            var x = 12;
+                            var y = 0;
+                            var rand = parseInt(Math.random() * (x - y + 1) + y);
+                            window.location.href="jump.html?id="+rand;
+                        } else if (data == "验证码错误"){
+                            layer.msg("验证码错误!");
+                        } else {
+                            layer.msg("登入失败，请输入正确的信息!");
+                        }
+                    }
+                    ,error: function (data) {
+                        layer.msg("验证码错误!");
+                    }
+
+                })
+            }
+        });
+        //倒计时
+        var countdown=60;
+        function settime(val) {
+            if (countdown == 0) {
+                val.removeAttribute("disabled");
+                val.value="获取验证码";
+                countdown = 60;
+                return false;
+            } else {
+                val.setAttribute("disabled", true);
+                val.value="重新发送(" + countdown + ")";
+                countdown--;
+            }
+            setTimeout(function() {
+                settime(val);
+            },1000);
+        };
+
+        $("#gain").click(function () {
+            var tel  = /^1\d{10}$/;
+            var phone = $("input[name='phone']").val();
+            var user_name = $("input[name='user_name']").val();
+            if (phone == ""){
+                layer.msg("手机号不能为空!");
+            } else if (!tel.test(phone)){
+                layer.msg("请输入正确的手机号");
+            } else {
+                settime(this);
+                $.ajax({
+                    url: 'auth.json',
+                    type: 'post',
+                    data: {phone:phone,user_name:user_name},
+                    dataType: 'json'
+                    ,success: function (data) {
+                        if (data.code == 200){
+                            layer.msg("发送成功!");
+                            settime(this)
+                        } else {
+                            layer.msg("发送失败!");
+                            countdown = 0;
+                            settime(this)
+                        }
+                    }
+                    ,error: function (data) {
+                        layer.msg("发送失败!");
+
+                    }
+                })
+
+            }
+
+        });
+
+
+    })
+</script>
+
+</body></html>

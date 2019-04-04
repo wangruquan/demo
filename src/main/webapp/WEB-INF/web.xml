@@ -1,0 +1,54 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+  <!-- 加载spring 配置文件 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:/spring/application_*.xml</param-value>
+  </context-param>
+
+  <!-- 配置监听器 监听spring的配置文件 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+
+  <!-- 配置DispatcherServlet -->
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 加载springmvc的配置文件 -->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:/spring/application_web.xml</param-value>
+    </init-param>
+    <!--DispatcherServlet在容器启动时初始化servlet -->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <!-- 拦截url请求 -->
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+  <!-- 配置过滤器 设置post方式的中文编码 -->
+  <filter>
+    <filter-name>encode</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+
+  </filter>
+  <filter-mapping>
+    <filter-name>encode</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <welcome-file-list>
+    <welcome-file>WEB-INF\pages\admin\login.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>
